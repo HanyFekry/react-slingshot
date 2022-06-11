@@ -16,16 +16,17 @@ jobs:
       - run:
           name: build app
           command: npm run lint
-      - persist_to_workspace:
-          root: ~/
+      - save_cache:
+          key: "node_files"
           paths: 
             - /src/node_modules
   test:
     << : *defaults
     steps:
       - checkout
-      - attach_workspace:
-          at: /src/node_modules
+      - restore_cache:
+          kees:
+            - "node_files"
       - run:
           name: test app
           command: npm run test
