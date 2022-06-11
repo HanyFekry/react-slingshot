@@ -2,7 +2,7 @@ version: 2.1
 
 defaults: &defaults
   docker: 
-    - image:  mm
+    - image: cimg/node:lts
   working_directory: ~/project
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
       <<: *defaults
       steps:
         attach_workspace:
-          to: ~/project/build
+          at: ~/project/build
         - run:
             name: test app
             command: npm run test
@@ -31,7 +31,7 @@ jobs:
       <<: *defaults
       steps:
         attach_workspace:
-          to: ~/project/build
+          at: ~/project/build
         - run:
             name: analyze app
             command: npm audit
