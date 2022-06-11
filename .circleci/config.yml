@@ -22,7 +22,7 @@ jobs:
   - test:
       <<: *defaults
       steps:
-        attact_workspace:
+        attach_workspace:
           to: ~/project/build
         - run:
             name: test app
@@ -30,7 +30,7 @@ jobs:
   - analyze:
       <<: *defaults
       steps:
-        attact_workspace:
+        attach_workspace:
           to: ~/project/build
         - run:
             name: analyze app
