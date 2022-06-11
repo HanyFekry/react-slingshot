@@ -1,0 +1,50 @@
+version: 2.1
+
+defaults: &defaults
+  docker: 
+    - image:  mm
+  working_directory: ~/project
+
+jobs:
+  - build:
+      <<: *defaults
+      steps:
+        - run:
+            name: install node
+            command: npm install 
+        - run:
+            name: build app
+            command: npm run lint
+        - persist_to_workspace:
+            root: ~/
+            pathes: 
+              - ~/project/build
+  - test:
+      <<: *defaults
+      steps:
+        attact_workspace:
+          to: ~/project/build
+        - run:
+            name: test app
+            command: npm run test
+  - analyze:
+      <<: *defaults
+      steps:
+        attact_workspace:
+          to: ~/project/build
+        - run:
+            name: analyze app
+            command: npm audit
+
+workflows:
+  default:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - analyze
+          requires:
+            - test
+
+  
