@@ -9,29 +9,30 @@ jobs:
   - build:
       <<: *defaults
       steps:
+        - checkout
         - run:
             name: install node
-            command: npm install 
+            command: npm i 
         - run:
             name: build app
             command: npm run lint
         - persist_to_workspace:
             root: ~/
             pathes: 
-              - ~/project/build
+              - ~/src/node_modules
   - test:
       <<: *defaults
       steps:
+        - checkout
         - attach_workspace:
-          at: ~/project/build
+            at: ~/src/node_modules
         - run:
             name: test app
             command: npm run test
   - analyze:
       <<: *defaults
       steps:
-        - attach_workspace:
-          at: ~/project/build
+        - checkout
         - run:
             name: analyze app
             command: npm audit
@@ -43,7 +44,7 @@ workflows:
       - test:
           requires:
             - build
-      - analyze
+      - analyze:
           requires:
             - test
 
