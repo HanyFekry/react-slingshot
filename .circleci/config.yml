@@ -6,36 +6,36 @@ defaults: &defaults
   working_directory: ~/project
 
 jobs:
-  - build:
-      <<: *defaults
-      steps:
-        - checkout
-        - run:
-            name: install node
-            command: npm i 
-        - run:
-            name: build app
-            command: npm run lint
-        - persist_to_workspace:
-            root: ~/
-            pathes: 
-              - ~/src/node_modules
-  - test:
-      <<: *defaults
-      steps:
-        - checkout
-        - attach_workspace:
-            at: ~/src/node_modules
-        - run:
-            name: test app
-            command: npm run test
-  - analyze:
-      <<: *defaults
-      steps:
-        - checkout
-        - run:
-            name: analyze app
-            command: npm audit
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: install node
+          command: npm i 
+      - run:
+          name: build app
+          command: npm run lint
+      - persist_to_workspace:
+          root: ~/
+          pathes: 
+            - ~/src/node_modules
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/src/node_modules
+      - run:
+          name: test app
+          command: npm run test
+  analyze:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: analyze app
+          command: npm audit
 
 workflows:
   default:
