@@ -15,7 +15,9 @@ jobs:
           command: npm i 
       - run:
           name: build app
-          command: npm run lint
+          command: |
+            npm run lint
+            ls -l
       - persist_to_workspace:
           root: ~/
           paths: 
