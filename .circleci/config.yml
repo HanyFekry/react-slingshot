@@ -25,7 +25,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          kees:
+          keys:
             - "node_files"
       - run:
           name: test app
