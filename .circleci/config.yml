@@ -19,13 +19,13 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths: 
-            - ~/src/node_modules
+            - ~/node_modules
   test:
     << : *defaults
     steps:
       - checkout
       - attach_workspace:
-          at: ~/src/node_modules
+          at: ~/node_modules
       - run:
           name: test app
           command: npm run test
