@@ -7,7 +7,7 @@ defaults: &defaults
 
 jobs:
   build:
-    <<: *defaults
+    << : *defaults
     steps:
       - checkout
       - run:
@@ -21,7 +21,7 @@ jobs:
           pathes: 
             - ~/src/node_modules
   test:
-    <<: *defaults
+    << : *defaults
     steps:
       - checkout
       - attach_workspace:
@@ -30,7 +30,7 @@ jobs:
           name: test app
           command: npm run test
   analyze:
-    <<: *defaults
+    << : *defaults
     steps:
       - checkout
       - run:
