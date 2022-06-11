@@ -15,19 +15,17 @@ jobs:
           command: npm i 
       - run:
           name: build app
-          command: |
-            npm run lint
-            ls -l
+          command: npm run lint
       - persist_to_workspace:
           root: ~/
           paths: 
-            - ~/node_modules
+            - /src/node_modules
   test:
     << : *defaults
     steps:
       - checkout
       - attach_workspace:
-          at: ~/node_modules
+          at: /src/node_modules
       - run:
           name: test app
           command: npm run test
